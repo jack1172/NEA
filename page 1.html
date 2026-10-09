@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Projectile Simulator</title>
+</head>
+<body>
+
+<canvas id="canvas" width="800" height="400" style="border:1px solid black;"></canvas>
+
+<script>
+
+fetch("trajectory.json")
+    .then(response => response.json())
+    .then(data => {
+
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        ctx.beginPath();
+
+        data.forEach((point, index) => {
+
+            let x = point[0] * 5;                 // scale up
+            let y = canvas.height - point[1] * 5; // flip y-axis
+
+            if (index === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+
+        });
+
+        ctx.stroke();
+
+    });
+
+</script>
+
+</body>
+</html>
